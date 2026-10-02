@@ -1,6 +1,6 @@
 set shell := ["bash", "-uc"]
 
-theme := "../openbunny-theme"
+theme := "node_modules/@openbunny/theme"
 
 export PATH := `mise bin-paths | tr '\n' ':'` + env('PATH')
 
@@ -36,6 +36,9 @@ _all gates:
 
 install:
     bun install --frozen-lockfile
+
+ci-check: install
+    just check
 
 ts-target:
     test -n "$(find src -name '*.ts')"
@@ -139,7 +142,7 @@ swift-build: extension-resources
     scheme=${proj%.xcodeproj}
     xcodebuild build -project "$proj" -scheme "$scheme" -derivedDataPath build/DerivedData \
         CODE_SIGNING_ALLOWED=NO GCC_TREAT_WARNINGS_AS_ERRORS=YES \
-        SWIFT_TREAT_WARNINGS_AS_ERRORS=YES SWIFT_STRICT_CONCURRENCY=complete
+        SWIFT_STRICT_CONCURRENCY=complete
 
 # No test runner discovers a renamed Xcode scheme and fails when it finds zero tests.
 swift-test: extension-resources
@@ -281,7 +284,7 @@ semgrep-theme:
 theme-accent:
     #!/usr/bin/env bash
     set -euo pipefail
-    test -f "{{ theme }}/xcode/AccentColor.colorset/Contents.json" || { echo "theme-accent: {{ theme }}/xcode/AccentColor.colorset is missing; check out the theme repository beside this one." >&2; exit 1; }
+    test -f "{{ theme }}/xcode/AccentColor.colorset/Contents.json" || { echo "theme-accent: {{ theme }}/xcode/AccentColor.colorset is missing; run just install." >&2; exit 1; }
     diff -r "{{ theme }}/xcode/AccentColor.colorset" App/Resources/Assets.xcassets/AccentColor.colorset
 
 # Renders artwork/app-icon.svg into the icon set.

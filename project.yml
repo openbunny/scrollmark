@@ -5,7 +5,8 @@ options:
   createIntermediateGroups: true
 packages:
   OpenBunnyTheme:
-    path: ../openbunny-theme
+    url: https://github.com/openbunny/theme.git
+    revision: 422c5b1cb8cd642324bc39d74079d4cee05dae69
 configs:
   Debug: debug
   Release: release

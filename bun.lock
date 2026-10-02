@@ -5,7 +5,7 @@
     "": {
       "name": "scrollmark",
       "dependencies": {
-        "@openbunny/theme": "file:../openbunny-theme/packages/web",
+        "@openbunny/theme": "github:openbunny/theme#422c5b1cb8cd642324bc39d74079d4cee05dae69",
       },
       "devDependencies": {
         "@types/bun": "1.4.0",
@@ -320,7 +320,7 @@
 
     "@npmcli/run-script": ["@npmcli/run-script@10.0.4", "", { "dependencies": { "@npmcli/node-gyp": "^5.0.0", "@npmcli/package-json": "^7.0.0", "@npmcli/promise-spawn": "^9.0.0", "node-gyp": "^12.1.0", "proc-log": "^6.0.0" } }, "sha512-mGUWr1uMnf0le2TwfOZY4SFxZGXGfm4Jtay/nwAa2FLNAKXUoUwaGwBMNH36UHPtinWfTSJ3nqFQr0091CxVGg=="],
 
-    "@openbunny/theme": ["@openbunny/theme@file:../openbunny-theme/packages/web", {}],
+    "@openbunny/theme": ["@openbunny/theme@github:openbunny/theme#422c5b1", {}, "openbunny-theme-422c5b1", "sha512-pAJEzIZq9WbNLr+6F4EnbKcLA9LqQg0Dqrivwmu2fn4LGBLli9pKiF1LTLeyBWUYj79BMNAZluzsjNX7R/yKMQ=="],
 
     "@oxc-parser/binding-android-arm-eabi": ["@oxc-parser/binding-android-arm-eabi@0.147.0", "", { "os": "android", "cpu": "arm" }, "sha512-fOtoGvIoirkvxQVw9J1WJPxz571XPgLsPf9uhRD+PJteUnvrJHMDmK9pw2yZEGGyismtRoEsp+JcXUdF/JDMDw=="],
 

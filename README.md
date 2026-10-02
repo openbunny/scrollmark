@@ -165,11 +165,9 @@ theme's 4.5:1 body contrast minimum. The pill font stack ends in the generic
 `monospace` family, because x.com does not load Courier Prime. The extension
 ships no font file and declares no `web_accessible_resources`.
 
-Both dependencies are local paths until the theme repository is published:
-`project.yml` points `OpenBunnyTheme` at `../openbunny-theme` and `package.json`
-points `@openbunny/theme` at `file:../openbunny-theme/packages/web`. Check the
-theme repository out beside this one. Switching to published versions is
-pending: after the theme is released, replace both paths with pinned versions.
+`project.yml` and `package.json` pin the same theme Git commit for Swift and
+TypeScript. After a theme release, replace both Git dependencies with pinned
+package versions.
 
 ## Development
 
