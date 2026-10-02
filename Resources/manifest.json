@@ -1,18 +1,28 @@
 {
   "manifest_version": 3,
   "name": "Scrollmark",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Resume X profiles where you left off.",
-  "permissions": ["storage"],
-  "host_permissions": ["https://x.com/*", "https://twitter.com/*"],
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*"
+  ],
   "action": {
     "default_title": "Scrollmark",
     "default_popup": "popup.html"
   },
   "content_scripts": [
     {
-      "matches": ["https://x.com/*", "https://twitter.com/*"],
-      "js": ["content/main.js"],
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "content/main.js"
+      ],
       "run_at": "document_idle",
       "all_frames": false
     }

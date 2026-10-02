@@ -1,7 +1,7 @@
 name: Scrollmark
 options:
   deploymentTarget:
-    macOS: "15.0"
+    macOS: '15.0'
   createIntermediateGroups: true
 packages:
   OpenBunnyTheme:
@@ -15,17 +15,17 @@ configFiles:
   Release: SigningRelease.xcconfig
 settings:
   base:
-    MACOSX_DEPLOYMENT_TARGET: "15.0"
-    SWIFT_VERSION: "6"
+    MACOSX_DEPLOYMENT_TARGET: '15.0'
+    SWIFT_VERSION: '6'
     SWIFT_STRICT_CONCURRENCY: complete
-    OTHER_SWIFT_FLAGS: -strict-memory-safety
-    SWIFT_TREAT_WARNINGS_AS_ERRORS: YES
-    GCC_TREAT_WARNINGS_AS_ERRORS: YES
-    ENABLE_APP_SANDBOX: YES
-    ENABLE_HARDENED_RUNTIME: YES
+    OTHER_SWIFT_FLAGS: '-strict-memory-safety'
+    SWIFT_TREAT_WARNINGS_AS_ERRORS: 'YES'
+    GCC_TREAT_WARNINGS_AS_ERRORS: 'YES'
+    ENABLE_APP_SANDBOX: 'YES'
+    ENABLE_HARDENED_RUNTIME: 'YES'
     APP_BUNDLE_IDENTIFIER: io.github.openbunny.scrollmark
-    MARKETING_VERSION: "0.1.0"
-    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: 0.2.0
+    CURRENT_PROJECT_VERSION: '1'
 targets:
   Scrollmark:
     type: application
@@ -68,8 +68,8 @@ targets:
       - path: Resources
         buildPhase: resources
         excludes:
-          - "**/*.ts"
-          - "content"
+          - '**/*.ts'
+          - content
       - path: Resources/content
         type: folder
       - path: App/PrivacyInfo.xcprivacy
@@ -79,7 +79,7 @@ targets:
         PRODUCT_NAME: Scrollmark Extension
         PRODUCT_BUNDLE_IDENTIFIER: $(APP_BUNDLE_IDENTIFIER).extension
         INFOPLIST_FILE: Extension/Info.plist
-        SKIP_INSTALL: YES
+        SKIP_INSTALL: 'YES'
         CODE_SIGN_ENTITLEMENTS: Extension/Extension.entitlements
   ScrollmarkTests:
     type: bundle.unit-test
