@@ -1,7 +1,7 @@
 # scrollmark
 
-> **Work in progress.** No release exists yet. Names, identifiers and
-> interfaces can change without notice.
+This is a developer project. Build and run it locally; there is no distribution
+or release process.
 
 scrollmark is a Safari web extension that remembers the last post read on an X
 profile timeline and shows a "jump to bookmark" button that scrolls back to it.
