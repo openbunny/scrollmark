@@ -36,14 +36,13 @@ these:
 | `DEVELOPMENT_TEAM`                  | 10-character Apple Developer team ID                      |
 | `NOTARY_API_KEY_P8`                 | Base64 of the App Store Connect API key `.p8`             |
 | `NOTARY_API_KEY_ID`                 | Key ID of that API key                                    |
+| `NOTARY_API_ISSUER_ID`              | Issuer ID of the Team API key                             |
 
-`NOTARY_API_ISSUER_ID` is optional. Set it for a Team API key and leave it unset
-for an Individual API key.
+Use a Team API key. [Individual API keys cannot use `notarytool`](https://developer.apple.com/documentation/AppStoreConnectAPI/creating-api-keys-for-app-store-connect-api).
 
 The owner creates the `release` environment in the repository settings:
 restrict deployment to the tag pattern `v*`, require one reviewer, and store the
-secrets there, not as repository secrets. Environment protection applies to
-public repositories on the Free plan and is ignored on a private one.
+secrets there, not as repository secrets.
 
 A notarized build loads in Safari 18.4 or later. The deployment target is macOS
 15.0, so the release notes and any Homebrew cask caveat name Safari 18.4.

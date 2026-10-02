@@ -69,9 +69,10 @@ jobs:
           DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
           NOTARY_API_KEY_P8: ${{ secrets.NOTARY_API_KEY_P8 }}
           NOTARY_API_KEY_ID: ${{ secrets.NOTARY_API_KEY_ID }}
+          NOTARY_API_ISSUER_ID: ${{ secrets.NOTARY_API_ISSUER_ID }}
         run: |
           missing=""
-          for name in DEVELOPER_ID_CERTIFICATE_P12 DEVELOPER_ID_CERTIFICATE_PASSWORD DEVELOPMENT_TEAM NOTARY_API_KEY_P8 NOTARY_API_KEY_ID; do
+          for name in DEVELOPER_ID_CERTIFICATE_P12 DEVELOPER_ID_CERTIFICATE_PASSWORD DEVELOPMENT_TEAM NOTARY_API_KEY_P8 NOTARY_API_KEY_ID NOTARY_API_ISSUER_ID; do
             [ -n "${!name}" ] || missing="$missing $name"
           done
           if [ -n "$missing" ]; then
@@ -138,10 +139,8 @@ jobs:
         run: |
           printf '%s' "$NOTARY_API_KEY_P8" | base64 --decode > "$RUNNER_TEMP/notary.p8"
           ditto -c -k --keepParent "$RUNNER_TEMP/export/Scrollmark.app" "$RUNNER_TEMP/notarize.zip"
-          issuer=()
-          [ -z "$NOTARY_API_ISSUER_ID" ] || issuer=(--issuer "$NOTARY_API_ISSUER_ID")
           result=$(xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" \
-            --key "$RUNNER_TEMP/notary.p8" --key-id "$NOTARY_API_KEY_ID" "${issuer[@]}" \
+            --key "$RUNNER_TEMP/notary.p8" --key-id "$NOTARY_API_KEY_ID" --issuer "$NOTARY_API_ISSUER_ID" \
             --wait --output-format json)
           echo "$result"
           if [ "$(echo "$result" | jq -r .status)" != "Accepted" ]; then
