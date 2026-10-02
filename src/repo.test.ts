@@ -63,7 +63,8 @@ test("CI runs on pull_request, references no secret and never pull_request_targe
   expect(isRecord(triggers) && "pull_request" in triggers).toBe(true)
   expect(workflowText("ci")).not.toContain("secrets.")
   expect(workflowText("ci")).not.toContain("pull_request_target")
-  expect(workflowText("ci")).toContain('CODE_SIGNING_ALLOWED: "NO"')
+  expect(workflowText("ci")).toContain("reusable-check.yml@")
+  expect(readFileSync("justfile", "utf8")).toContain("CODE_SIGNING_ALLOWED=NO")
 })
 
 test("the release workflow is tag-triggered and signs only under the release environment", () => {

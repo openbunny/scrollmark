@@ -4,26 +4,11 @@ on:
     branches: [main]
   pull_request:
 permissions: {}
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 jobs:
   zizmor:
     name: Zizmor
     permissions:
       contents: read
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    env:
-      MISE_LOCKED: "1"
-      GH_TOKEN: ${{ github.token }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
-        with:
-          cache: false
-          install_args: zizmor
-      - name: zizmor
-        run: zizmor --persona=pedantic .github/workflows
+    uses: openbunny/.github/.github/workflows/reusable-zizmor.yml@8a67b83aedd4176c2629ac2cb6c9f53041c23abd # v0.1.0
+    with:
+      version: 1.30.1
