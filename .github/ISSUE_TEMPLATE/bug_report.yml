@@ -1,0 +1,67 @@
+name: Bug report
+description: The extension or app behaves differently from what it documents
+title: "[bug]: "
+labels: ["type/bug", "status/needs-triage"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - Content script (pill, bookmarks)
+        - Companion app
+        - Build or install
+    validations:
+      required: true
+  - type: dropdown
+    id: site
+    attributes:
+      label: Site
+      description: The address the bug occurs on.
+      options:
+        - x.com
+        - twitter.com
+        - Not applicable
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed
+      description: What happened, including any error text.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+      description: What you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: "macOS 15.1"
+    validations:
+      required: true
+  - type: input
+    id: safari
+    attributes:
+      label: Safari version
+      description: Safari menu, About Safari.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: scrollmark version
+      description: The version shown in Safari Settings, Extensions, or the release tag you built.
+    validations:
+      required: true

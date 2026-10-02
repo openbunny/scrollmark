@@ -1,0 +1,1 @@
+#import "SafariExtensionStateShim.h"

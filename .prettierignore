@@ -1,0 +1,4 @@
+Resources/content/
+DerivedData/
+build/
+*.xcodeproj/

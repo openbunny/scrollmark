@@ -1,0 +1,3 @@
+import SwiftUI
+
+let ground = Color(red: 1, green: 1, blue: 1)

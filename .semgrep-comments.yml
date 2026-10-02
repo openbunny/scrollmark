@@ -1,0 +1,148 @@
+rules:
+  - id: ts-comment-not-kept
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      Comment outside the keep list. TypeScript keeps only a directive a tool reads (cspell:ignore, @vitest-environment, eslint-disable/-enable) and JSDoc on a genuinely published package's public API -- neither applies here on the evidence in the comment itself.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:^|[ \t])//(?!/)[^\n]*$'
+      - pattern-not-regex: "(?i)cspell:ignore|@vitest-environment|eslint-disable|eslint-enable|SPDX-License-Identifier|Copyright"
+  - id: ts-block-comment-not-kept
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      /* */ or /** */ block comment outside the keep list -- see ts-comment-not-kept.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      # A bare `/\*...\*/` also spans an
+      # ordinary string glob like `"…/*"` through an unrelated later `*/`
+      # substring such as `"*://*/*"`, so a real opener must not be glued to
+      # an identifier or slash right before it, or a quote right after it.
+      - pattern-regex: '(?:^|[^A-Za-z0-9_/])/\*(?!["''`])[\s\S]*?\*/'
+      - pattern-not-regex: "(?i)cspell:ignore|@vitest-environment|eslint-disable|eslint-enable|SPDX-License-Identifier|Copyright"
+  - id: swift-doc-comment-not-kept
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      /// doc comment outside the keep list: carries no link to an outside authority and no licence/SPDX header. AGENTS.md § Comments defaults to none; cut it, or add what the keep list requires.
+    patterns:
+      - pattern-regex: '(?:^[ \t]*///[^\n]*\n)+[ \t]*[^\n]*\n'
+      - pattern-not-regex: "https?://"
+      - pattern-not-regex: "(?i)SPDX-License-Identifier|Copyright"
+  - id: swift-comment-not-kept
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      // comment outside the keep list. A licence header, or a line-scoped `swiftlint:disable:next`/`:previous`/`:this` carrying its reason after a dash, are the sole keeps; a reason with no suppression belongs on the issue, not the line.
+    patterns:
+      - pattern-regex: '(?:^|[ \t])//(?!/)[^\n]*$'
+      - pattern-not-regex: "(?i)SPDX-License-Identifier|Copyright"
+      - pattern-not-regex: '(?i)swiftlint:disable:(?:next|previous|this)\b[^\n]*[-\x{2013}\x{2014}]\s*\S'
+  - id: swift-block-comment-not-kept
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      /* */ or /** */ block comment outside the keep list. Not on the keep list at any size; delete it or move the reason to the issue.
+    patterns:
+      # A bare
+      # `/\*...\*/` also spans an ordinary string glob like `"…/*"` through
+      # an unrelated later `*/` substring, so a real opener must not be
+      # glued to an identifier or slash right before it, or a quote right
+      # after it.
+      - pattern-regex: '(?:^|[^A-Za-z0-9_/])/\*(?!["''`])[\s\S]*?\*/'
+      - pattern-not-regex: "(?i)SPDX-License-Identifier|Copyright"
+  - id: objc-comment-not-kept
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      Comment block outside the keep list: no link to an outside authority, no licence/SPDX header. Cut it, or add what the keep list requires.
+    # `languages: [generic]` because semgrep has no Objective-C parser.
+    # Block-matched: no suppression-directive keep exists here, since no
+    # Objective-C lint tool is configured.
+    paths:
+      include:
+        - "/App/**/*.h"
+        - "/App/**/*.m"
+    patterns:
+      - pattern-regex: '(?:^[ \t]*//[^\n]*\n)+[ \t]*[^\n]*\n'
+      - pattern-not-regex: "https?://"
+      - pattern-not-regex: "(?i)SPDX-License-Identifier|Copyright"
+  - id: objc-block-comment-not-kept
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      /* */ or /** */ block comment outside the keep list. Not on the keep list at any size; delete it or move the reason to the issue.
+    paths:
+      include:
+        - "/App/**/*.h"
+        - "/App/**/*.m"
+    patterns:
+      - pattern-regex: '(?:^|[^A-Za-z0-9_/])/\*(?!["''`])[\s\S]*?\*/'
+      - pattern-not-regex: "(?i)SPDX-License-Identifier|Copyright"
+  - id: yaml-comment-not-kept
+    languages: [yaml]
+    severity: ERROR
+    message: >-
+      Comment block outside the keep list: longer than AGENTS.md § Comments' 3-line hazard ceiling, with no licence/SPDX header and no nosemgrep/noqa directive carrying its reason. Trim it to fit, cite an issue or doc, or cut it.
+    paths:
+      exclude:
+        - "/.semgrep.yml"
+        - "/.semgrep-comments.yml"
+        - "/.semgrep-comments-strict.yml"
+        - "/.semgrep-voice.yml"
+    patterns:
+      - pattern-regex: '(?:^[ \t]*#(?!!)[^\n]*\n){4,}'
+      - pattern-not-regex: "(?i)SPDX-License-Identifier|Copyright"
+      - pattern-not-regex: "(?i)(?:noqa|nosemgrep)\\b.*[-–—]\\s*\\S"
+  - id: mjs-comment-not-kept
+    languages: [javascript]
+    severity: ERROR
+    message: >-
+      Comment outside the keep list -- see ts-comment-not-kept. semgrep's `typescript` language does not match `.mjs` by extension, so this mirrors that rule's keep list under `javascript` instead.
+    paths:
+      include:
+        - "**/*.mjs"
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-either:
+          - pattern-regex: '(?:^|[ \t])//(?!/)[^\n]*$'
+          - pattern-regex: '(?:^|[^A-Za-z0-9_/])/\*(?!["''`])[\s\S]*?\*/'
+      - pattern-not-regex: "(?i)cspell:ignore|@vitest-environment|eslint-disable|eslint-enable|SPDX-License-Identifier|Copyright"
+      - pattern-not-regex: '"'
+  - id: justfile-comment-not-kept
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      # comment outside the keep list: not the single line `just --list` renders as this recipe's description, no licence/SPDX header, and no nosemgrep/noqa directive carrying its reason. Trim it to the one line `just --list` shows, cite an issue or doc, or cut it.
+    paths:
+      include:
+        - "/justfile"
+    patterns:
+      - pattern-regex: '(?m)^[ \t]*#(?!!)[^\n]*\n[ \t]*[^\n]*\n'
+      - pattern-not-regex: "(?i)SPDX-License-Identifier|Copyright"
+      - pattern-not-regex: "(?i)(?:noqa|nosemgrep)\\b.*[-–—]\\s*\\S"
+      - pattern-not-regex: '(?m)^[a-zA-Z_][a-zA-Z0-9_-]*(?:[ \t]+[^\n]*)?:(?!=)'
+  - id: jsonc-comment-not-kept
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      // comment outside the keep list: not the reason block immediately preceding a boolean `"KEY": true|false` line, and no licence/SPDX header. Cut it, or move the reason onto the key it justifies.
+    # Block-matched: a key's reason is prose, and its `"KEY":`
+    # line sits below the paragraph, not on every line -- a per-line check
+    # would fail every reason line but the last on placement alone. The keep
+    # is boolean keys only: a choice with two states carries its reason
+    # beside it; anything else states a rule that belongs in a document.
+    # `*.json5` is not covered.
+    paths:
+      include:
+        - "**/*.jsonc"
+    patterns:
+      - pattern-regex: '(?:^[ \t]*//[^\n]*\n)+[ \t]*[^\n]*\n'
+      - pattern-not-regex: "(?i)SPDX-License-Identifier|Copyright"
+      - pattern-not-regex: '(?m)^[ \t]*"[^"\n]+"[ \t]*:[ \t]*(?:false|true)'

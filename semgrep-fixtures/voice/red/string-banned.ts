@@ -1,0 +1,6 @@
+export const figurative = "a robust parser"
+export const purpose = "this helps you read"
+export const hedge = "simply read the file"
+export const firstPerson = "we read the file"
+export const temporal = "the value is currently empty"
+export const joined = "a rob" + "ust parser"

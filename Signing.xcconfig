@@ -1,0 +1,4 @@
+CODE_SIGN_STYLE = Automatic
+CODE_SIGN_IDENTITY = Apple Development
+CODE_SIGNING_REQUIRED = YES
+#include? "DeveloperTeam.xcconfig"

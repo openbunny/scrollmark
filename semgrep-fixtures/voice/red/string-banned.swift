@@ -1,0 +1,6 @@
+let figurative = "a robust parser"
+let purpose = "this helps you read"
+let hedge = "simply read the file"
+let firstPerson = "we read the file"
+let temporal = "the value is currently empty"
+let joined = "a robust " + "parser"

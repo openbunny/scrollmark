@@ -1,0 +1,347 @@
+rules:
+  - id: ts-string-figurative
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      Figurative language in a string or template literal. AGENTS.md § Voice: it does not resolve literally, so a literal reader stalls on it.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`|''(?:[^''\\\n]|\\.)*'')'
+      - pattern-regex: "(?i)\\b(at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|smart|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star)\\b"
+  - id: ts-string-purpose-verb
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A purpose verb in a string or template literal. AGENTS.md § Voice: say what a thing is, never what it does for the reader.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`|''(?:[^''\\\n]|\\.)*'')'
+      - pattern-regex: "(?i)\\b(helps you|lets you|allows you to|enables|makes it easy to|so you can|designed to|built to)\\b"
+  - id: ts-string-hedge
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A hedge or filler word in a string or template literal. AGENTS.md § Voice: cut every word that is not the fact.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`|''(?:[^''\\\n]|\\.)*'')'
+      - pattern-regex: "(?i)\\b(simply|just|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted)\\b"
+  - id: ts-string-first-person
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      First person plural in a string or template literal. AGENTS.md § Voice: no we, no our, no let's.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`|''(?:[^''\\\n]|\\.)*'')'
+      - pattern-regex: "(?i)\\b(we|our|let's)\\b"
+  - id: ts-comment-figurative
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      Figurative language in a comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:^|[ \t])//[^\n]*$'
+      - pattern-regex: "(?i)\\b(at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|smart|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star)\\b"
+  - id: ts-comment-purpose-verb
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A purpose verb in a comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:^|[ \t])//[^\n]*$'
+      - pattern-regex: "(?i)\\b(helps you|lets you|allows you to|enables|makes it easy to|so you can|designed to|built to)\\b"
+  - id: ts-comment-hedge
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A hedge or filler word in a comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:^|[ \t])//[^\n]*$'
+      - pattern-regex: "(?i)\\b(simply|just|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted)\\b"
+  - id: ts-string-temporal-filler
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A temporal filler phrase in a string or template literal. AGENTS.md § Voice: every state may change, so this is never the fact -- unless the timing itself is the fact, as in `4m old`.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`|''(?:[^''\\\n]|\\.)*'')'
+      - pattern-regex: "(?i)\\b(right now|at the moment|currently)\\b"
+  - id: ts-comment-temporal-filler
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A temporal filler phrase in a comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: '(?:^|[ \t])//[^\n]*$'
+      - pattern-regex: "(?i)\\b(right now|at the moment|currently)\\b"
+  - id: swift-string-figurative
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      Figurative language in a string literal. AGENTS.md § Voice: it does not resolve literally, so a literal reader stalls on it. Say what the thing is.
+    patterns:
+      - pattern-regex: '"(?:[^"\\\n]|\\.)*"'
+      - pattern-regex: "(?i)\\b(at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|smart|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star)\\b"
+  - id: swift-string-purpose-verb
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      A purpose verb in a string literal. AGENTS.md § Voice: say what a thing is, never what it does for the reader.
+    patterns:
+      - pattern-regex: '"(?:[^"\\\n]|\\.)*"'
+      - pattern-regex: "(?i)\\b(helps you|lets you|allows you to|enables|makes it easy to|so you can|designed to|built to)\\b"
+  - id: swift-string-hedge
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      A hedge or filler word in a string literal. AGENTS.md § Voice: cut every word that is not the fact.
+    patterns:
+      - pattern-regex: '"(?:[^"\\\n]|\\.)*"'
+      - pattern-regex: "(?i)\\b(simply|just|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted)\\b"
+  - id: swift-string-first-person
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      First person plural in a string literal. AGENTS.md § Voice: no we, no our, no let's.
+    patterns:
+      - pattern-regex: '"(?:[^"\\\n]|\\.)*"'
+      - pattern-regex: "(?i)\\b(we|our|let's)\\b"
+  - id: swift-comment-figurative
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      Figurative language in a comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    patterns:
+      - pattern-regex: '(?:^[ \t]*///?[^\n]*\n)+[ \t]*[^\n]*\n'
+      - pattern-regex: "(?i)\\b(at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|smart|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star)\\b"
+  - id: swift-comment-purpose-verb
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      A purpose verb in a comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    patterns:
+      - pattern-regex: '(?:^[ \t]*///?[^\n]*\n)+[ \t]*[^\n]*\n'
+      - pattern-regex: "(?i)\\b(helps you|lets you|allows you to|enables|makes it easy to|so you can|designed to|built to)\\b"
+  - id: swift-comment-hedge
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      A hedge or filler word in a comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    patterns:
+      - pattern-regex: '(?:^[ \t]*///?[^\n]*\n)+[ \t]*[^\n]*\n'
+      - pattern-regex: "(?i)\\b(simply|just|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted)\\b"
+  - id: swift-string-temporal-filler
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      A temporal filler phrase in a string literal. AGENTS.md § Voice: every state may change, so this is never the fact -- unless the timing itself is the fact, as in `4m old`.
+    patterns:
+      - pattern-regex: '"(?:[^"\\\n]|\\.)*"'
+      - pattern-regex: "(?i)\\b(right now|at the moment|currently)\\b"
+  - id: swift-comment-temporal-filler
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      A temporal filler phrase in a comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    patterns:
+      - pattern-regex: '(?:^[ \t]*///?[^\n]*\n)+[ \t]*[^\n]*\n'
+      - pattern-regex: "(?i)\\b(right now|at the moment|currently)\\b"
+  - id: swift-string-concat-literal
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      Two or more plain string literals joined with `+` evade the word lists. Merge into one literal.
+    patterns:
+      - pattern-regex: '"(?:[^"\\]|\\.)*"(?:\s*\+\s*"(?:[^"\\]|\\.)*")+'
+  - id: ts-concat-figurative
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      Figurative language reassembled from a `+` chain of literals; the join-tolerant sibling of ts-string-figurative. Merge the literals, or remove the word.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: "(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*')(?:\\s*\\+\\s*(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*'))+"
+      - pattern-regex: "(?i)(?:a(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?g(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?e|u(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?d(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?h(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?h(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?d|d(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?d(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?w(?:[\"'`]\\s*\\+\\s*[\"'`])?n|d(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?p(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?d(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?v(?:[\"'`]\\s*\\+\\s*[\"'`])?e|u(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?k|p(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?w(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?f(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?l|s(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?m(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?s|r(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?b(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?t|r(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?h|s(?:[\"'`]\\s*\\+\\s*[\"'`])?m(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?t|i(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?v(?:[\"'`]\\s*\\+\\s*[\"'`])?e|e(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?g(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?t|f(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\-(?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?s|o(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?f(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?h(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?b(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?x|h(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?v(?:[\"'`]\\s*\\+\\s*[\"'`])?y(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?f(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?g|s(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?f(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?h|n(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?h(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?r)"
+  - id: ts-concat-purpose-verb
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A purpose verb reassembled from a `+` chain of literals; the join-tolerant sibling of ts-string-purpose-verb. Merge the literals, or remove the word.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: "(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*')(?:\\s*\\+\\s*(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*'))+"
+      - pattern-regex: "(?i)(?:h(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?p(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?y(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?u|l(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?y(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?u|a(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?w(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?y(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?o|e(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?b(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?s|m(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?k(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?y(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?o|s(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?y(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?n|d(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?g(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?d(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?o|b(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?o)"
+  - id: ts-concat-hedge
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A hedge or filler word reassembled from a `+` chain of literals; the join-tolerant sibling of ts-string-hedge. Merge the literals, or remove the word.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: "(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*')(?:\\s*\\+\\s*(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*'))+"
+      - pattern-regex: "(?i)(?:s(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?m(?:[\"'`]\\s*\\+\\s*[\"'`])?p(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?y|j(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?t|e(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?y|b(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?y|a(?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?y|r(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?y|q(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?e|f(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?y|g(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?y|t(?:[\"'`]\\s*\\+\\s*[\"'`])?y(?:[\"'`]\\s*\\+\\s*[\"'`])?p(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?y|v(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?s|a(?:[\"'`]\\s*\\+\\s*[\"'`])?p(?:[\"'`]\\s*\\+\\s*[\"'`])?p(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?p(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?e|a(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?d(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?d|p(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?e|o(?:[\"'`]\\s*\\+\\s*[\"'`])?f(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?c(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?e|n(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?h(?:[\"'`]\\s*\\+\\s*[\"'`])?a(?:[\"'`]\\s*\\+\\s*[\"'`])?t|i(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?d(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?r(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?o|i(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?s(?:[\"'`]\\s*\\+\\s*[\"'`])?h(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?u(?:[\"'`]\\s*\\+\\s*[\"'`])?l(?:[\"'`]\\s*\\+\\s*[\"'`])?d(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?b(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?d)"
+  - id: ts-concat-temporal-filler
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      A temporal filler phrase reassembled from a `+` chain of literals; the join-tolerant sibling of ts-string-temporal-filler. Merge the literals, or remove the word.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: "(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*')(?:\\s*\\+\\s*(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*'))+"
+      - pattern-regex: "(?i)(?:r(?:[\"'`]\\s*\\+\\s*[\"'`])?i(?:[\"'`]\\s*\\+\\s*[\"'`])?g(?:[\"'`]\\s*\\+\\s*[\"'`])?h(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?w|a(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?h(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?\\ (?:[\"'`]\\s*\\+\\s*[\"'`])?m(?:[\"'`]\\s*\\+\\s*[\"'`])?o(?:[\"'`]\\s*\\+\\s*[\"'`])?m(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?n(?:[\"'`]\\s*\\+\\s*[\"'`])?t)"
+  - id: ts-concat-first-person
+    languages: [typescript]
+    severity: ERROR
+    message: >-
+      First person plural reassembled from a `+` chain of literals; the join-tolerant sibling of ts-string-first-person. The join must fall inside the word's own letters, because an optional join at every position also matches a whole word inside one literal of an unrelated `+` chain. Merge the literals, or remove the word.
+    paths:
+      exclude:
+        - "**/gen/**"
+    patterns:
+      - pattern-regex: "(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*')(?:\\s*\\+\\s*(?:\"(?:[^\"\\\\\\n]|\\\\.)*\"|`(?:[^`\\\\]|\\\\.)*`|'(?:[^'\\\\\\n]|\\\\.)*'))+"
+      - pattern-regex: "(?i)(?:\\bw[\"'`]\\s*\\+\\s*[\"'`]e\\b|\\bo[\"'`]\\s*\\+\\s*[\"'`]u(?:[\"'`]\\s*\\+\\s*[\"'`])?r\\b|\\bo(?:[\"'`]\\s*\\+\\s*[\"'`])?u[\"'`]\\s*\\+\\s*[\"'`]r\\b|\\bl[\"'`]\\s*\\+\\s*[\"'`]e(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\\\?'(?:[\"'`]\\s*\\+\\s*[\"'`])?s\\b|\\bl(?:[\"'`]\\s*\\+\\s*[\"'`])?e[\"'`]\\s*\\+\\s*[\"'`]t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\\\?'(?:[\"'`]\\s*\\+\\s*[\"'`])?s\\b|\\bl(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?t[\"'`]\\s*\\+\\s*[\"'`]\\\\?'(?:[\"'`]\\s*\\+\\s*[\"'`])?s\\b|\\bl(?:[\"'`]\\s*\\+\\s*[\"'`])?e(?:[\"'`]\\s*\\+\\s*[\"'`])?t(?:[\"'`]\\s*\\+\\s*[\"'`])?\\\\?'[\"'`]\\s*\\+\\s*[\"'`]s\\b)"
+  - id: md-figurative
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      Figurative language in markdown prose. AGENTS.md § Voice: it does not resolve literally, so a literal reader stalls on it.
+    paths:
+      include:
+        - "*.md"
+    patterns:
+      - pattern-regex: '(?mi)^(?!>)(?:[^`"\n]|`[^`\n]*`|"[^"\n]*")*?\b(?:at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star)\b'
+  - id: md-purpose-verb
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      A purpose verb in markdown prose. AGENTS.md § Voice: say what a thing is, never what it does for the reader.
+    paths:
+      include:
+        - "*.md"
+    patterns:
+      - pattern-regex: '(?mi)^(?!>)(?:[^`"\n]|`[^`\n]*`|"[^"\n]*")*?\b(?:helps you|lets you|allows you to|makes it easy to|so you can|designed to|built to)\b'
+  - id: md-hedge
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      A hedge or filler word in markdown prose. AGENTS.md § Voice: cut every word that is not the fact.
+    paths:
+      include:
+        - "*.md"
+    patterns:
+      - pattern-regex: '(?mi)^(?!>)(?:[^`"\n]|`[^`\n]*`|"[^"\n]*")*?\b(?:simply|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted)\b'
+  - id: md-hedge-just
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      "just" as a hedge in markdown prose, not the `just` command-runner name. AGENTS.md § Voice: cut every word that is not the fact.
+    paths:
+      include:
+        - "*.md"
+    patterns:
+      - pattern-regex: '(?mi)^(?!>)(?!\s*just\b)(?:[^`"\n]|`[^`\n]*`|"[^"\n]*")*?\bjust\b'
+  - id: md-temporal-filler
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      A temporal filler phrase in markdown prose. AGENTS.md § Voice: every state may change, so this is never the fact -- unless the timing itself is the fact, as in `4m old`.
+    paths:
+      include:
+        - "*.md"
+    patterns:
+      - pattern-regex: '(?mi)^(?!>)(?:[^`"\n]|`[^`\n]*`|"[^"\n]*")*?\b(?:right now|at the moment|currently)\b'
+  - id: md-first-person
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      First person plural in markdown prose. AGENTS.md § Voice: no we, no our, no let's.
+    paths:
+      include:
+        - "*.md"
+    patterns:
+      - pattern-regex: "(?mi)^(?!>)(?:[^`\"\\n]|`[^`\\n]*`|\"[^\"\\n]*\")*?\\b(?:we|our|let's)\\b"
+  - id: yaml-comment-authored-voice
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      Banned wording in a YAML comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    paths:
+      include:
+        - "*.yml"
+        - "*.yaml"
+      exclude:
+        - ".semgrep-voice.yml"
+        - ".semgrep-comments.yml"
+    patterns:
+      - pattern-regex: "(?mi)^\\s*#(?:[^`\"\\n]|`[^`\\n]*`|\"[^\"\\n]*\")*?\\b(?:at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star|helps you|lets you|allows you to|makes it easy to|so you can|designed to|built to|simply|just|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted|right now|at the moment|currently|we|our|let's)\\b"
+  - id: justfile-comment-authored-voice
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      Banned wording in a justfile comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    paths:
+      include:
+        - "justfile"
+    patterns:
+      - pattern-regex: "(?mi)^\\s*#(?:[^`\"\\n]|`[^`\\n]*`|\"[^\"\\n]*\")*?\\b(?:at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star|helps you|lets you|allows you to|makes it easy to|so you can|designed to|built to|simply|just|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted|right now|at the moment|currently|we|our|let's)\\b"
+  # A `just`/shell recipe's own `echo`/`printf` argument reaches an operator
+  # reading gate output, same standing as an error message in source --
+  # unlike the comment rules above, the double-quoted span here *is* the
+  # prose to check, not a citation to skip past, so no pairing prefix
+  # applies. A single-quoted
+  # banner literal (`'\n...just %s...\n'`, the gate-name separator) is
+  # unreached by design, since it prints the tool's own name
+  # rather than a message.
+  - id: shell-message-authored-voice
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      Banned wording in an echo/printf message a human reads. AGENTS.md § Voice applies to everything a human reads. "just" is absent from this list: in a justfile or a shell recipe the word names the command runner far more often than it hedges, and the backtick carve-out `md-hedge-just` uses cannot transfer, since a backtick inside a shell string is command substitution. A hedging "just" in one of these messages is caught by review.
+    paths:
+      include:
+        - "*.sh"
+        - "justfile"
+    patterns:
+      - pattern-regex: "(?i)(?:echo|printf)\\s+\"[^\"\\n]*\\b(?:at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star|helps you|lets you|allows you to|makes it easy to|so you can|designed to|built to|simply|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted|right now|at the moment|currently|we|our|let's)\\b[^\"\\n]*\""
+  - id: mjs-comment-authored-voice
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      Banned wording in a `.mjs` config comment. AGENTS.md § Voice applies to everything a human reads, comments included.
+    paths:
+      include:
+        - "*.mjs"
+    patterns:
+      - pattern-regex: "(?mi)^\\s*//(?:[^`\"\\n]|`[^`\\n]*`|\"[^\"\\n]*\")*?\\b(?:at a glance|under the hood|drill down|deep dive|unlock|powerful|seamless|robust|rich|intuitive|elegant|first-class|out of the box|heavy lifting|source of truth|north star|helps you|lets you|allows you to|makes it easy to|so you can|designed to|built to|simply|just|essentially|basically|actually|really|quite|fairly|generally|typically|various|appropriate|as needed|please note|of course|note that|in order to|it should be noted|right now|at the moment|currently|we|our|let's)\\b"

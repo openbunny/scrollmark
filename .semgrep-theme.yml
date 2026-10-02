@@ -1,0 +1,25 @@
+rules:
+  - id: theme-color-literal
+    languages: [regex]
+    severity: ERROR
+    message: >-
+      A colour literal appears outside the OpenBunny theme dependency. Every colour comes from `@openbunny/theme/tokens` in TypeScript and from `OpenBunnyTheme` `Color` constants in Swift. Replace the literal with a token; add a token to the theme repository when none fits.
+    pattern-regex: '(?i)#[0-9a-f]{3,8}\b|\b(?:rgb|rgba|hsl|hsla|hwb|oklch|oklab)\(|\b(?:Color|NSColor|UIColor|CGColor)\s*\(|\b(?:NSColor|UIColor)\b|\bColor\.(?:black|white|red|orange|yellow|green|mint|teal|cyan|blue|indigo|purple|pink|brown|gray|clear|primary|secondary|accentColor)\b|\.foregroundColor\('
+  - id: theme-font-literal
+    languages: [regex]
+    severity: ERROR
+    message: >-
+      A font family or system font appears outside the OpenBunny theme dependency. Use `font` from `@openbunny/theme/tokens` in TypeScript and the `Font.theme*` values from `OpenBunnyUI` in Swift. Replace the literal with a token; add a token to the theme repository when none fits.
+    pattern-regex: '(?i)font-family\s*:\s*(?!\$\{)|@font-face|\bfontFamily\b|\bFont\.(?:system|custom)\b|\.font\(\s*\.(?!theme)|\.(?:system|custom)\(\s*(?:size:|")|\b(?:NSFont|UIFont)\b'
+  - id: theme-radius-literal
+    languages: [regex]
+    severity: ERROR
+    message: >-
+      A corner radius appears outside the OpenBunny theme dependency. Use `radius` from `@openbunny/theme/tokens` in TypeScript and `Radius` from `OpenBunnyTheme` in Swift. Replace the literal with a token; add a token to the theme repository when none fits.
+    pattern-regex: '(?i)border-radius\s*:\s*(?!\$\{)|\bborderRadius\b|\bcornerRadius\b|\bRoundedRectangle\b|\bUnevenRoundedRectangle\b|\bCapsule\b|\.clipShape\('
+  - id: theme-size-literal
+    languages: [regex]
+    severity: ERROR
+    message: >-
+      A size, spacing or padding number appears outside the OpenBunny theme dependency. Use `text` and `space` from `@openbunny/theme/tokens` in TypeScript and `TextSize` and `Spacing` from `OpenBunnyTheme` in Swift. Replace the literal with a token; add a token to the theme repository when none fits.
+    pattern-regex: '(?i)\b(?:font-size|padding|margin|gap)\s*:\s*[0-9.]|\.padding\(\s*(?:\.\w+\s*,\s*)?[0-9]|\b(?:spacing|minWidth|maxWidth|minHeight|maxHeight):\s*[0-9]|\.frame\([^)]*[0-9]'

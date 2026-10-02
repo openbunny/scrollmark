@@ -1,0 +1,7 @@
+node_modules/
+/Resources/content/
+/*.xcodeproj/
+/DeveloperTeam.xcconfig
+DerivedData/
+/build/
+*.xcresult/

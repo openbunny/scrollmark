@@ -1,0 +1,24 @@
+name: release-please
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  release-please:
+    name: Release Please
+    permissions:
+      contents: write # pushes the release commit and tag
+      pull-requests: write # opens and updates the release PR
+      issues: write # comments release links on issues the release closes
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}

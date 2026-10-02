@@ -1,0 +1,46 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:recommended",
+    ":semanticCommits",
+    "helpers:pinGitHubActionDigestsToSemver",
+  ],
+  dependencyDashboard: false,
+  timezone: "UTC",
+  schedule: ["before 6am"],
+  labels: ["dependencies"],
+  rangeStrategy: "pin",
+  lockFileMaintenance: {
+    enabled: true,
+  },
+  vulnerabilityAlerts: {
+    labels: ["security"],
+    schedule: [],
+  },
+  enabledManagers: ["npm", "github-actions", "mise", "custom.regex"],
+  customManagers: [
+    {
+      customType: "regex",
+      managerFilePatterns: ["/^\\.github/workflows/.+\\.ya?ml$/"],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: versioning=(?<versioning>\\S+))?\\s*\\n\\s*[\\w-]+:\\s*['\"]?(?<currentValue>[^'\"\\s]+)",
+      ],
+    },
+  ],
+  packageRules: [
+    {
+      matchManagers: ["npm", "mise"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
+    },
+    {
+      matchManagers: ["github-actions"],
+      pinDigests: true,
+      automerge: true,
+    },
+    {
+      matchUpdateTypes: ["major"],
+      automerge: false,
+    },
+  ],
+}

@@ -1,0 +1,84 @@
+rules:
+  - id: swift-network-api
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      This extension ships everything bundled: no network request, no telemetry, no remote font or script at runtime. `URLSession`, `URLRequest` and `NWConnection` have no call site in the containing app or the extension handler.
+    pattern-either:
+      - pattern: URLSession.$S.dataTask(...)
+      - pattern: URLSession.$S.downloadTask(...)
+      - pattern: URLSession.$S.uploadTask(...)
+      - pattern: "URLSession.$S.data(for: ...)"
+      - pattern: "URLSession(configuration: $C)"
+      - pattern: URLRequest(...)
+      - pattern: NWConnection(...)
+  - id: swift-absence-to-sentinel
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      A failable numeric parse coalesced to zero on failure, or a money-named parameter defaulted to zero instead of Optional, turns "this value could not be represented" into "this value is zero" -- the two are indistinguishable downstream. AGENTS.md § Swift: absence remains optional and never becomes zero. Keep the `nil`, or throw a specific error.
+    # Three shapes. The first two are not money-name-scoped: any numeric or
+    # Decimal parse whose failure becomes zero loses the same information
+    # regardless of the name. The third matches a money-named parameter with a
+    # default value, which has no failed-conversion call to match on.
+    # `AppTests/EffectiveBuildSettingsTests.swift` decodes xcodebuild output
+    # with `?? ""`; no branch fires on `String(bytes:encoding:)`.
+    pattern-either:
+      - patterns:
+          - pattern-either:
+              - pattern: $T($S) ?? 0
+              - pattern: "$T(string: $S) ?? 0"
+              - pattern: $T($S) ?? .zero
+              - pattern: "$T(string: $S) ?? .zero"
+          - metavariable-regex:
+              metavariable: $T
+              regex: "^(Decimal|Double|Float|Int|Int8|Int16|Int32|Int64|UInt|UInt8|UInt16|UInt32|UInt64)$"
+      - pattern-regex: '\b(?:Decimal|Double|Float|Int(?:8|16|32|64)?|UInt(?:8|16|32|64)?)\((?:string:\s*)?[^()]*\)\.map\s*\{\s*\$0\s*\}\s*\?\?\s*0\b'
+      - pattern-regex: '(?:\b(?i:price|size|fee|rate|margin|notional|qty|quantity|amount|leverage|funding|pnl|volume|cost|spread|bps|quote)\b|(?<=[a-z0-9])(?:Price|Size|Fee|Rate|Margin|Notional|Qty|Quantity|Amount|Leverage|Funding|Pnl|Volume|Cost|Spread|Bps|Quote)\b)\s*:\s*(?:Decimal|Double|Float|Int\w*|UInt\w*)\??\s*=\s*(?:0(?:\.0+)?|\.zero)\b'
+  - id: swift-money-field-uses-binary-float
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      AGENTS.md § Swift: money is Foundation.Decimal parsed from the source token, never Double or Float. A stored property or parameter typed Double/Float, or a binding assigned a Double(...)/ Float(...) conversion, loses the wire token to a binary float -- for a declared field the loss is the type; for a conversion it is the call itself, which is why both are checked rather than only the type.
+    # Regex: a scalar-type
+    # check semgrep's Swift AST patterns cannot narrow to "a money name"
+    # without duplicating this same word list into metavariable-regex. Word
+    # list matches money-field-defaults-to-zero's above. Two branches for
+    # Swift's camelCase, where snake_case's underscore segmentation does not
+    # apply: a bare identifier (`price`, `cost`) via `\b...\b`, or the word as
+    # a compound's final segment (`entryPrice`, `fundingRate`) via a
+    # lowercase-then-uppercase lookbehind -- neither matches a word merely
+    # containing the letters, so `generate`, `moderateValue` and `priceUsd`
+    # (suffix, not the segment before the colon/equals) do not fire.
+    pattern-either:
+      - pattern-regex: '(?:\b(?i:price|size|fee|rate|margin|notional|qty|quantity|amount|leverage|funding|pnl|volume|cost|spread|bps|quote)\b|(?<=[a-z0-9])(?:Price|Size|Fee|Rate|Margin|Notional|Qty|Quantity|Amount|Leverage|Funding|Pnl|Volume|Cost|Spread|Bps|Quote)\b)\s*:\s*(?:Double|Float)\??\b'
+      - pattern-regex: '(?:\b(?i:price|size|fee|rate|margin|notional|qty|quantity|amount|leverage|funding|pnl|volume|cost|spread|bps|quote)\b|(?<=[a-z0-9])(?:Price|Size|Fee|Rate|Margin|Notional|Qty|Quantity|Amount|Leverage|Funding|Pnl|Volume|Cost|Spread|Bps|Quote)\b)\s*=\s*(?:Double|Float)\('
+  - id: swift-secret-in-userdefaults
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      AGENTS.md § Swift puts secrets in Keychain, never UserDefaults, a property list, a log or source. `UserDefaults` persists to an unencrypted plist under the app's container, readable by anything with file-system access to it.
+    patterns:
+      - pattern: "UserDefaults.$D.set($V, forKey: $K)"
+      - metavariable-regex:
+          metavariable: $K
+          regex: '(?i)"[^"]*(secret|token|password|apikey|credential)[^"]*"'
+  - id: swift-dynamic-code-construction
+    languages: [swift]
+    severity: ERROR
+    message: >-
+      No dynamic code construction in a bundled-everything extension. `NSClassFromString`, `NSExpression` and `dlopen` all resolve a name or a string to executable code at runtime, which is exactly what a static extension with no remote input has no reason to do.
+    pattern-either:
+      - pattern: NSClassFromString(...)
+      - pattern: dlopen(...)
+      - pattern: NSExpression(...)
+  - id: swift-committed-signing-identifier
+    languages: [generic]
+    severity: ERROR
+    message: >-
+      No development team, signing certificate or provisioning profile anywhere in committed files: every extension build passes with `CODE_SIGNING_ALLOWED=NO`. A concrete `DEVELOPMENT_TEAM`, `CODE_SIGN_IDENTITY` or `PROVISIONING_PROFILE*` key in a committed `project.yml` pins a real Apple Developer identity into version control.
+    paths:
+      include:
+        - "/project.yml"
+        - "/fixtures/*/project.yml"
+    pattern-regex: '(?m)^\s*(DEVELOPMENT_TEAM|CODE_SIGN_IDENTITY|PROVISIONING_PROFILE|PROVISIONING_PROFILE_SPECIFIER)\s*:'

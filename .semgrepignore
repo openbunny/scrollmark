@@ -1,0 +1,4 @@
+fixtures/
+semgrep-fixtures/
+node_modules/
+bun.lock

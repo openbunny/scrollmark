@@ -1,0 +1,6 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Untracked build output and installed dependencies; neither is committed."
+paths = ['''^node_modules/''', '''^build/''', '''^Resources/content/''', '''^bun\.lock$''']

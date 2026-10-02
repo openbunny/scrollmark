@@ -1,0 +1,21 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "include": [
+    "exports",
+    "types",
+    "duplicates",
+    "unresolved",
+    "files",
+    "dependencies",
+    "unlisted",
+    "binaries",
+    "enumMembers",
+    "namespaceMembers",
+    "cycles"
+  ],
+  "entry": ["src/content/main.ts", "src/popup/popup.ts", "src/**/*.test.ts"],
+  "project": ["src/**/*.ts"],
+  "eslint": {
+    "config": ["eslint.config.mjs", "eslint.base.mjs"]
+  }
+}

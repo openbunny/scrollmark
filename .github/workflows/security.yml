@@ -1,0 +1,31 @@
+name: Security
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
+  schedule:
+    - cron: "0 6 * * 1"
+permissions: {}
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  osv:
+    name: OSV
+    permissions:
+      contents: read
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      MISE_LOCKED: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        with:
+          cache: false
+          install_args: osv-scanner
+      - name: vulnerabilities
+        run: osv-scanner scan source --lockfile bun.lock

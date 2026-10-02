@@ -1,0 +1,24 @@
+scrollmark
+Copyright (c) 2026 OpenBunny
+
+The extension and the companion app depend on the OpenBunny theme, licensed
+under the MIT licence: the `@openbunny/theme` package (`OpenBunnyTheme` in
+`project.yml`). The content script bundles its color and font-stack constants.
+The companion app bundles the OpenBunnyTheme Swift package, including two
+fonts under the SIL Open Font License, Version 1.1. The license texts ship in
+the package's resource bundle inside the app.
+
+Courier Prime
+Copyright 2015 The Courier Prime Project Authors
+https://github.com/quoteunquoteapps/CourierPrime
+
+JetBrains Mono
+Copyright 2020 The JetBrains Mono Project Authors
+https://github.com/JetBrains/JetBrainsMono
+
+The extension bundle ships no font file. Development tools installed by
+`bun install` and `mise install` are not distributed.
+
+The app icon is original work released under the MIT licence in LICENSE.
+scrollmark is not affiliated with or endorsed by X Corp. "X" and "Twitter"
+name the sites the extension runs on and nothing else.
