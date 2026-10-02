@@ -119,10 +119,10 @@ describes it in the same commit.
 ## Signing
 
 The signed build uses a free Personal Team in `DeveloperTeam.xcconfig`, copied
-from `DeveloperTeam.xcconfig.example`. `Signing.xcconfig` and `SigningRelease.xcconfig` include it and
-`.gitignore` excludes it. Debug signs with Apple Development; Release signs with
-Developer ID Application. `Scripts/require-signing-team.sh` fails a signed
-build with a named message when `DEVELOPMENT_TEAM` is unset. No development team, signing certificate or
+from `DeveloperTeam.xcconfig.example`. `Signing.xcconfig` includes it and
+`.gitignore` excludes it. Debug and Release use Apple Development.
+`Scripts/require-signing-team.sh` fails a signed build with a named message
+when `DEVELOPMENT_TEAM` is unset. No development team, signing certificate or
 provisioning profile is committed; every gate builds with
 `CODE_SIGNING_ALLOWED=NO`. Safari keys the extension by bundle identifier in
 machine-global state, so build, launch and register the extension one process

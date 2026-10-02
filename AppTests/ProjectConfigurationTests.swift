@@ -58,7 +58,7 @@ struct ProjectConfigurationTests {
     #expect(!project.contains("PROVISIONING_PROFILE"))
     #expect(!project.contains("CODE_SIGN_IDENTITY"))
     #expect(project.contains("Debug: Signing.xcconfig"))
-    #expect(project.contains("Release: SigningRelease.xcconfig"))
+    #expect(project.contains("Release: Signing.xcconfig"))
 
     let debug = try String(contentsOf: ProjectFile.url("Signing.xcconfig"), encoding: .utf8)
     #expect(debug.contains("CODE_SIGN_IDENTITY = Apple Development"))
@@ -66,15 +66,6 @@ struct ProjectConfigurationTests {
     #expect(debug.contains("CODE_SIGNING_REQUIRED = YES"))
     #expect(debug.contains("#include? \"DeveloperTeam.xcconfig\""))
     #expect(!debug.contains("DEVELOPMENT_TEAM"))
-
-    let release = try String(
-      contentsOf: ProjectFile.url("SigningRelease.xcconfig"), encoding: .utf8)
-    #expect(release.contains("CODE_SIGN_IDENTITY = Developer ID Application"))
-    #expect(release.contains("CODE_SIGN_STYLE = Manual"))
-    #expect(release.contains("CODE_SIGNING_REQUIRED = YES"))
-    #expect(release.contains("OTHER_CODE_SIGN_FLAGS = --timestamp"))
-    #expect(release.contains("#include? \"DeveloperTeam.xcconfig\""))
-    #expect(!release.contains("DEVELOPMENT_TEAM"))
 
     let gitignore = try String(
       contentsOf: ProjectFile.url(".gitignore"), encoding: .utf8)

@@ -45,14 +45,6 @@ enum XcodeBuildSettings {
 
 @Suite
 struct EffectiveBuildSettingsTests {
-  static func identity(_ configuration: String) -> String {
-    configuration == "Release" ? "Developer ID Application" : "Apple Development"
-  }
-
-  static func style(_ configuration: String) -> String {
-    configuration == "Release" ? "Manual" : "Automatic"
-  }
-
   @Test(
     "the app target's effective settings apply Swift 6, strict checks and warnings as errors",
     arguments: ["Debug", "Release"]
@@ -69,8 +61,8 @@ struct EffectiveBuildSettingsTests {
     #expect(
       settings["PRODUCT_BUNDLE_IDENTIFIER"]
         == (try ProjectYAML.scalar(forKey: "APP_BUNDLE_IDENTIFIER")))
-    #expect(settings["CODE_SIGN_IDENTITY"] == Self.identity(configuration))
-    #expect(settings["CODE_SIGN_STYLE"] == Self.style(configuration))
+    #expect(settings["CODE_SIGN_IDENTITY"] == "Apple Development")
+    #expect(settings["CODE_SIGN_STYLE"] == "Automatic")
     #expect(settings["CODE_SIGNING_REQUIRED"] == "YES")
   }
 
@@ -89,8 +81,8 @@ struct EffectiveBuildSettingsTests {
     #expect(
       settings["PRODUCT_BUNDLE_IDENTIFIER"]
         == (try ProjectYAML.scalar(forKey: "APP_BUNDLE_IDENTIFIER")) + ".extension")
-    #expect(settings["CODE_SIGN_IDENTITY"] == Self.identity(configuration))
-    #expect(settings["CODE_SIGN_STYLE"] == Self.style(configuration))
+    #expect(settings["CODE_SIGN_IDENTITY"] == "Apple Development")
+    #expect(settings["CODE_SIGN_STYLE"] == "Automatic")
     #expect(settings["CODE_SIGNING_REQUIRED"] == "YES")
   }
 

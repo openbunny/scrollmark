@@ -1,5 +1,0 @@
-CODE_SIGN_STYLE = Manual
-CODE_SIGN_IDENTITY = Developer ID Application
-CODE_SIGNING_REQUIRED = YES
-OTHER_CODE_SIGN_FLAGS = --timestamp
-#include? "DeveloperTeam.xcconfig"

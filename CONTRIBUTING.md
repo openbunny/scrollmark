@@ -39,7 +39,7 @@ Safari needs a signed build:
 2. Set `DEVELOPMENT_TEAM` to the team ID of a free Personal Team.
 3. Run `just install-app`.
 
-`DeveloperTeam.xcconfig` is ignored by git. `Signing.xcconfig` and `SigningRelease.xcconfig` include it, and
+`DeveloperTeam.xcconfig` is ignored by git. `Signing.xcconfig` includes it, and
 `just semgrep-house-rules` fails if `project.yml` names a team, identity or
 provisioning profile. Do not commit a team ID.
 

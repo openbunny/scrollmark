@@ -28,13 +28,6 @@ test("package.json and the manifest carry the project.yml version", () => {
   expect(at(manifest, "version")).toBe(version)
 })
 
-test.if(process.env["RELEASE_TAG"] !== undefined)(
-  "the release tag names the project.yml version",
-  () => {
-    expect(process.env["RELEASE_TAG"]).toBe(`v${String(version)}`)
-  }
-)
-
 test("every runtime dependency and Swift package has a NOTICE entry", () => {
   const names = [
     ...Object.keys(at(packageJson, "dependencies") ?? {}),
@@ -65,61 +58,6 @@ test("CI runs on pull_request, references no secret and never pull_request_targe
   expect(workflowText("ci")).not.toContain("pull_request_target")
   expect(workflowText("ci")).toContain("reusable-check.yml@")
   expect(readFileSync("justfile", "utf8")).toContain("CODE_SIGNING_ALLOWED=NO")
-})
-
-test("the release workflow is tag-triggered and signs only under the release environment", () => {
-  expect(at(workflow("release"), "on", "push", "tags")).toEqual(["v*"])
-  const job = at(workflow("release"), "jobs", "sign-notarize-publish")
-  expect(at(job, "environment")).toBe("release")
-  expect(at(job, "needs")).toEqual(["tag-version"])
-  for (const other of ["ci", "security", "gitleaks", "reuse", "tag-version"])
-    expect(
-      at(workflow("release"), "jobs", other, "environment")
-    ).toBeUndefined()
-  expect(workflowText("release")).not.toContain("pull_request")
-})
-
-test("the release job fails with a named message before signing when a secret is missing", () => {
-  const text = workflowText("release")
-  const check = text.indexOf("Release secrets missing")
-  expect(check).toBeGreaterThan(0)
-  expect(check).toBeLessThan(text.indexOf("security create-keychain"))
-  for (const name of [
-    "DEVELOPER_ID_CERTIFICATE_P12",
-    "DEVELOPER_ID_CERTIFICATE_PASSWORD",
-    "DEVELOPMENT_TEAM",
-    "NOTARY_API_KEY_P8",
-    "NOTARY_API_KEY_ID",
-  ])
-    expect(text).toContain(`secrets.${name}`)
-})
-
-test("signing secrets appear only in the release workflow", () => {
-  for (const name of [
-    "ci",
-    "dco",
-    "gitleaks",
-    "release-please",
-    "reuse",
-    "scorecard",
-    "security",
-    "zizmor",
-  ])
-    expect(workflowText(name)).not.toMatch(
-      /secrets\.(?:DEVELOPER_ID|NOTARY|DEVELOPMENT_TEAM)/
-    )
-})
-
-test("the release workflow notarizes, staples and validates the staple", () => {
-  const text = workflowText("release")
-  for (const command of [
-    "notarytool submit",
-    "stapler staple",
-    "stapler validate",
-    "--wait",
-  ])
-    expect(text).toContain(command)
-  expect(text).not.toContain("--deep")
 })
 
 test("the manifest declares a popup and no other page", () => {

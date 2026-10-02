@@ -52,13 +52,9 @@ build:
 
 `just` lists every recipe.
 
-A Release build signs with Developer ID Application and needs a paid Apple
-Developer Program membership. `DEVELOPMENT_TEAM` must name that team, in
-`DeveloperTeam.xcconfig` or on the `xcodebuild` command line. A signed build
-with `DEVELOPMENT_TEAM` unset fails in the `Require signing team` scheme pre-action
-with the message `DEVELOPMENT_TEAM is unset`. The signed, notarized release
-build is produced by `.github/workflows/release.yml`; [RELEASING.md](RELEASING.md)
-describes it.
+The Xcode Debug and Release configurations both use Apple Development signing.
+A signed build with `DEVELOPMENT_TEAM` unset fails with
+`DEVELOPMENT_TEAM is unset`. This repository has no distribution workflow.
 
 ## Enable the extension
 
@@ -73,11 +69,8 @@ not return extension status`, and a button that opens Safari settings.
 
 ## Safari version
 
-A build signed with Developer ID and notarized loads in Safari 18.4 or later.
-The deployment target is macOS 15.0, and macOS 15.0 ships a Safari older than
-18.4 until it is updated, so update Safari before installing a release build.
 A development-signed build needs **Allow Unsigned Extensions**, as described
-above, on any Safari version.
+above. The supported Safari floor has not been measured on device.
 
 ## Permissions
 
@@ -177,7 +170,7 @@ lists the gates, the tooling and the contribution terms.
 
 The version is `MARKETING_VERSION` in `project.yml`. `package.json` and
 `Resources/manifest.json` carry the same value, and `src/repo.test.ts` fails
-when they differ or when a release tag names another version.
+when they differ.
 
 ## Accessibility and language
 
