@@ -30,7 +30,7 @@
     "licenses": "license-checker-rseidelsohn --excludePrivatePackages --excludePackages \"@cspell/dict-en-common-misspellings@2.2.2\" --onlyAllow \"MIT;MIT-0;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;CC0-1.0;BlueOak-1.0.0;Python-2.0;CC-BY-4.0;CC-BY-3.0\""
   },
   "dependencies": {
-    "@openbunny/theme": "github:openbunny/theme#422c5b1cb8cd642324bc39d74079d4cee05dae69"
+    "@openbunny/theme": "github:openbunny/theme#f267e00e18276a32bc5a064d15e0aefd88ac0b0b"
   },
   "devDependencies": {
     "@types/bun": "1.4.0",
