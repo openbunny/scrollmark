@@ -3,7 +3,7 @@ lockfile = true
 
 [tools]
 actionlint = "1.7.12"
-bun = "1.4.2"
+bun = "1.4.3"
 editorconfig-checker = "4.0.1"
 gitleaks = "8.30.1"
 jq = "1.8.2"
