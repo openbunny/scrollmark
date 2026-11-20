@@ -14,9 +14,9 @@
     "url": "https://github.com/openbunny/scrollmark/issues"
   },
   "description": "Resume X profiles where you left off, as a Safari web extension.",
-  "packageManager": "bun@1.4.4",
+  "packageManager": "bun@1.4.5",
   "engines": {
-    "bun": "1.4.4"
+    "bun": "1.4.5"
   },
   "scripts": {
     "build": "bun src/build.ts",
@@ -33,7 +33,7 @@
     "@openbunny/theme": "github:openbunny/theme#422c5b1cb8cd642324bc39d74079d4cee05dae69"
   },
   "devDependencies": {
-    "@types/bun": "1.4.4",
+    "@types/bun": "1.4.5",
     "@types/jsdom": "30.0.0",
     "cspell": "10.5.1",
     "esbuild": "0.28.2",
