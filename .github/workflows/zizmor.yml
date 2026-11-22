@@ -9,6 +9,6 @@ jobs:
     name: Zizmor
     permissions:
       contents: read
-    uses: openbunny/.github/.github/workflows/reusable-zizmor.yml@8a67b83aedd4176c2629ac2cb6c9f53041c23abd # v0.1.0
+    uses: openbunny/.github/.github/workflows/reusable-zizmor.yml@2050692900f7dcd883e416ebee37a1b97b119203 # v0.3.0
     with:
       version: 1.30.1
